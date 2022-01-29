@@ -14,19 +14,18 @@ void Robot::RobotInit()
     m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
     frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
     ahrs = new AHRS(SPI::Port::kMXP);
-    ahrs->Reset();
+    resetSensors();
 }
 
 
 void Robot::AutonomousInit() 
 {
+    resetSensors();
 }
 
 void Robot::TeleopInit() 
 {
-    ahrs->Reset();
-    ahrs->ZeroYaw();
-    driveTrain.resetAllEncoders();
+    resetSensors();
 }
 
 void Robot::TeleopPeriodic() 
@@ -37,11 +36,17 @@ void Robot::TeleopPeriodic()
     driveY = joystickController.GetY();
     driveZ = joystickController.GetTwist();
     //xbox controller
-    // driveX = driveController.GetLeftX();
-    // driveY = driveController.GetLeftY();
-    // driveZ = driveController.GetRightX();
+    // driveX = xboxController.GetLeftX();
+    // driveY = xboxController.GetLeftY();
+    // driveZ = xboxController.GetRightX();
 
     driveTrain.drive(driveX, driveY, driveZ, nav_yaw);
+}
+
+void Robot::resetSensors(){
+    ahrs->Reset();
+    ahrs->ZeroYaw();
+    driveTrain.resetAllEncoders();
 }
 
 void Robot::AutonomousPeriodic() {}

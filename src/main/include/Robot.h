@@ -23,7 +23,7 @@ class Robot : public frc::TimedRobot
     void DisabledPeriodic() override;
     void TestInit() override;
     void TestPeriodic() override;
-    void manualAngleControl();
+    void resetSensors();
 
 
 private:
@@ -33,7 +33,7 @@ private:
     std::string m_autoSelected;
 
     //CONTROLLER VALUES
-    XboxController driveController{0};
+    XboxController xboxController{0};
     Joystick joystickController{0};
     
     double speedMul = 0;
