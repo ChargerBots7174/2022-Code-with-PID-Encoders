@@ -13,7 +13,8 @@
 
 using namespace frc;
 
-void Robot::RobotInit() {
+void Robot::RobotInit() 
+{
     m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
     m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
     frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
@@ -21,11 +22,9 @@ void Robot::RobotInit() {
     ahrs->Reset();
 }
 
-void Robot::RobotPeriodic() {
 
-}
-
-void Robot::AutonomousInit() {
+void Robot::AutonomousInit() 
+{
     frontRightAngleMotor.SetSelectedSensorPosition(0);
     frontLeftAngleMotor.SetSelectedSensorPosition(0);
     backRightAngleMotor.SetSelectedSensorPosition(0);
@@ -37,11 +36,8 @@ void Robot::AutonomousInit() {
     backLeftDriveMotor.SetSelectedSensorPosition(0);
 }
 
-void Robot::AutonomousPeriodic() {
-
- }
-
-void Robot::TeleopInit() {
+void Robot::TeleopInit() 
+{
     ahrs->Reset();
     ahrs->ZeroYaw();
 
@@ -56,10 +52,13 @@ void Robot::TeleopInit() {
     backRightDriveMotor.SetSelectedSensorPosition(0);
 }
 
-void Robot::TeleopPeriodic() {
+void Robot::TeleopPeriodic() 
+{
     driveTrain.drive(driveController.GetLeftX(), driveController.GetLeftY(), (driveController.GetRightX() * 0.6), -ahrs->GetYaw());
 }
 
+void Robot::AutonomousPeriodic() {}
+void Robot::RobotPeriodic() {}
 void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}
 void Robot::TestInit() {}
