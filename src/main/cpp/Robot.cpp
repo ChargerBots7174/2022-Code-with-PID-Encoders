@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #include "Robot.h"
 #include "SwerveDrive.hpp"
 #include <iostream>
@@ -9,7 +5,6 @@
 #include <frc/shuffleboard/Shuffleboard.h>
 
 #define _USE_MATH_DEFINES
-#include <cmath>
 
 using namespace frc;
 
@@ -36,7 +31,17 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic() 
 {
-    driveTrain.drive(driveController.GetLeftX(), driveController.GetLeftY(), (driveController.GetRightX() * 0.6), -ahrs->GetYaw());
+    nav_yaw = -ahrs->GetYaw();
+    //joystick
+    driveX = joystickController.GetX();
+    driveY = joystickController.GetY();
+    driveZ = joystickController.GetTwist();
+    //xbox controller
+    // driveX = driveController.GetLeftX();
+    // driveY = driveController.GetLeftY();
+    // driveZ = driveController.GetRightX();
+
+    driveTrain.drive(driveX, driveY, driveZ, nav_yaw);
 }
 
 void Robot::AutonomousPeriodic() {}

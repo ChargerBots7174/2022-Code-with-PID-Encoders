@@ -34,23 +34,13 @@ private:
 
     //CONTROLLER VALUES
     XboxController driveController{0};
-    XboxController controlController{1};
-    Joystick LogitechStick{2};
+    Joystick joystickController{0};
     
     double speedMul = 0;
     AHRS *ahrs;
+    double nav_yaw = 0;
 
-    //Joystick arcade {2};
-
-    bool driveButtonA = driveController.GetAButton();
-    bool driveButtonB = driveController.GetBButton();
-    bool driveButtonY = driveController.GetYButton();
-    bool driveButtonX = driveController.GetXButton();
-
-    bool controlButtonA = controlController.GetAButton();
-    bool controlButtonB = controlController.GetBButton();
-    bool controlButtonY = controlController.GetYButton();
-    bool controlButtonX = controlController.GetXButton();
+    double driveX, driveY, driveZ = 0;
 
     WPI_TalonSRX frontLeftDriveMotor = 20;
     WPI_TalonSRX frontLeftAngleMotor = 21;
@@ -67,8 +57,4 @@ private:
     SwerveDrive driveTrain;
 
     I2C arduino {I2C::Port::kOnboard, 0x03};
-
-    double inputX = 0;
-    double inputY = 0;
-    double inputOmega = 0;
 };

@@ -49,8 +49,6 @@ class SwerveDrive
 		double backLeftAngleCalc = 0;
 		double frontRightAngleCalc = 0;
 		double frontLeftAngleCalc = 0;
-
-		double setOmega = 0;
 	public:
 		void drive(double xv, double yv, double omega, double speedMul);
 		void resetAllEncoders();

@@ -1,6 +1,5 @@
 #include "SwerveDrive.hpp"  
 
-
 SwerveDrive::SwerveDrive() {}
 SwerveDrive::~SwerveDrive() {}
 
@@ -84,18 +83,19 @@ void SwerveDrive::drive(double xv,double yv,double omega,double speedMul)
     frc::SmartDashboard::PutNumber("backLeftAngle", backLeftAngle);
     frc::SmartDashboard::PutNumber("front right Angle", frontRightAngle);
     frc::SmartDashboard::PutNumber("front left Angle", frontLeftAngle);
-
 }
 
 
-void SwerveDrive::updateAllEncoders(){
+void SwerveDrive::updateAllEncoders()
+{
     frontRightAngle = frontRightAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
     frontLeftAngle = frontLeftAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
     backRightAngle = backRightAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
     backLeftAngle = backLeftAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
 }
 
-void SwerveDrive::resetAllEncoders(){
+void SwerveDrive::resetAllEncoders()
+{
     frontRightAngleMotor.SetSelectedSensorPosition(0);
     frontLeftAngleMotor.SetSelectedSensorPosition(0);
     backRightAngleMotor.SetSelectedSensorPosition(0);
