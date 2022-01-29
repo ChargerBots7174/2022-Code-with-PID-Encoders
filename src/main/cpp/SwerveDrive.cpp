@@ -9,15 +9,15 @@ void SwerveDrive::drive(double xv,double yv,double omega,double speedMul)
     double r = sqrt ((robotLength * robotLength) + (robotWidth * robotWidth));
     yv *= -1;
 
-    if (yv < 0.075 && yv > -0.075)
+    if (yv < driftOffset && yv > -driftOffset)
     {
         yv = 0;
     }
-    if (xv < 0.075 && xv > -0.075)
+    if (xv < driftOffset && xv > -driftOffset)
     {
         xv = 0;
     }
-    if (omega < 0.075 && omega > -0.075)
+    if (omega < driftOffset && omega > -driftOffset)
     {
         omega = 0;
         gyroPID.EnableContinuousInput(-180, 180);
