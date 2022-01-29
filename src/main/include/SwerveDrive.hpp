@@ -53,6 +53,8 @@ class SwerveDrive
 		double setOmega = 0;
 	public:
 		void drive(double xv, double yv, double omega, double speedMul);
+		void resetAllEncoders();
+		void updateAllEncoders();
 		SwerveDrive();
 		~SwerveDrive();
 };

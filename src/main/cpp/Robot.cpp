@@ -25,31 +25,13 @@ void Robot::RobotInit()
 
 void Robot::AutonomousInit() 
 {
-    frontRightAngleMotor.SetSelectedSensorPosition(0);
-    frontLeftAngleMotor.SetSelectedSensorPosition(0);
-    backRightAngleMotor.SetSelectedSensorPosition(0);
-    backLeftAngleMotor.SetSelectedSensorPosition(0);
-
-    frontRightDriveMotor.SetSelectedSensorPosition(0);
-    frontLeftDriveMotor.SetSelectedSensorPosition(0);
-    backRightDriveMotor.SetSelectedSensorPosition(0);
-    backLeftDriveMotor.SetSelectedSensorPosition(0);
 }
 
 void Robot::TeleopInit() 
 {
     ahrs->Reset();
     ahrs->ZeroYaw();
-
-    frontRightAngleMotor.SetSelectedSensorPosition(0);
-    frontLeftAngleMotor.SetSelectedSensorPosition(0);
-    backRightAngleMotor.SetSelectedSensorPosition(0);
-    backLeftAngleMotor.SetSelectedSensorPosition(0);
-
-    frontLeftDriveMotor.SetSelectedSensorPosition(0);
-    frontRightDriveMotor.SetSelectedSensorPosition(0);
-    backLeftDriveMotor.SetSelectedSensorPosition(0);
-    backRightDriveMotor.SetSelectedSensorPosition(0);
+    driveTrain.resetAllEncoders();
 }
 
 void Robot::TeleopPeriodic() 

@@ -6,10 +6,7 @@ SwerveDrive::~SwerveDrive() {}
 
 void SwerveDrive::drive(double xv,double yv,double omega,double speedMul)
 {
-    frontRightAngle = frontRightAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
-    frontLeftAngle = frontLeftAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
-    backRightAngle = backRightAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
-    backLeftAngle = backLeftAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
+    updateAllEncoders();
     double r = sqrt ((robotLength * robotLength) + (robotWidth * robotWidth));
     yv *= -1;
 
@@ -51,7 +48,7 @@ void SwerveDrive::drive(double xv,double yv,double omega,double speedMul)
     frontLeftAngleCalc = 180 * atan2 (b, d) / (2*acos(0));
     frontRightAngleCalc = 180 * atan2 (b, c) / (2*acos(0));
 
-    //SET DRIVE MOTORS        
+    //SET DRIVE MOTORS
     frontLeftDriveMotor.Set(ControlMode::PercentOutput, (frontLeftSpeed * 0.6));
     frontRightDriveMotor.Set(ControlMode::PercentOutput, (frontRightSpeed * 0.6));
     backRightDriveMotor.Set(ControlMode::PercentOutput, (backRightSpeed * 0.6));
@@ -88,4 +85,24 @@ void SwerveDrive::drive(double xv,double yv,double omega,double speedMul)
     frc::SmartDashboard::PutNumber("front right Angle", frontRightAngle);
     frc::SmartDashboard::PutNumber("front left Angle", frontLeftAngle);
 
+}
+
+
+void SwerveDrive::updateAllEncoders(){
+    frontRightAngle = frontRightAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
+    frontLeftAngle = frontLeftAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
+    backRightAngle = backRightAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
+    backLeftAngle = backLeftAngleMotor.GetSelectedSensorPosition() * 0.0146484375;
+}
+
+void SwerveDrive::resetAllEncoders(){
+    frontRightAngleMotor.SetSelectedSensorPosition(0);
+    frontLeftAngleMotor.SetSelectedSensorPosition(0);
+    backRightAngleMotor.SetSelectedSensorPosition(0);
+    backLeftAngleMotor.SetSelectedSensorPosition(0);
+
+    frontRightDriveMotor.SetSelectedSensorPosition(0);
+    frontLeftDriveMotor.SetSelectedSensorPosition(0);
+    backRightDriveMotor.SetSelectedSensorPosition(0);
+    backLeftDriveMotor.SetSelectedSensorPosition(0);
 }
