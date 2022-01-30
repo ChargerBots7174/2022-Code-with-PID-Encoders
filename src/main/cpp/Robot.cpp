@@ -35,12 +35,13 @@ void Robot::TeleopPeriodic()
     driveX = joystickController.GetX();
     driveY = joystickController.GetY();
     driveZ = joystickController.GetTwist();
+    maxSpeed = joystickController.GetThrottle();
     //xbox controller
     // driveX = xboxController.GetLeftX();
     // driveY = xboxController.GetLeftY();
     // driveZ = xboxController.GetRightX();
 
-    driveTrain.drive(driveX, driveY, driveZ, nav_yaw);
+    driveTrain.drive(driveX, driveY, driveZ, nav_yaw, maxSpeed);
 }
 
 void Robot::resetSensors(){

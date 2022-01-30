@@ -41,6 +41,7 @@ private:
     double nav_yaw = 0;
 
     double driveX, driveY, driveZ = 0;
+    double maxSpeed = 0;
 
     WPI_TalonSRX frontLeftDriveMotor = 20;
     WPI_TalonSRX frontLeftAngleMotor = 21;

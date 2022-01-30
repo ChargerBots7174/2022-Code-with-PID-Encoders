@@ -52,7 +52,7 @@ class SwerveDrive
 
 		double driftOffset = 0.01;
 	public:
-		void drive(double xv, double yv, double omega, double speedMul);
+		void drive(double xv, double yv, double omega, double speedMul, double maxSpeed);
 		void resetAllEncoders();
 		void updateAllEncoders();
 		SwerveDrive();

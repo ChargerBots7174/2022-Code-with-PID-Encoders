@@ -3,7 +3,7 @@
 SwerveDrive::SwerveDrive() {}
 SwerveDrive::~SwerveDrive() {}
 
-void SwerveDrive::drive(double xv,double yv,double omega,double speedMul)
+void SwerveDrive::drive(double xv,double yv,double omega,double speedMul, double maxSpeed)
 {
     updateAllEncoders();
     double r = sqrt ((robotLength * robotLength) + (robotWidth * robotWidth));
@@ -48,10 +48,10 @@ void SwerveDrive::drive(double xv,double yv,double omega,double speedMul)
     frontRightAngleCalc = 180 * atan2 (b, c) / (2*acos(0));
 
     //SET DRIVE MOTORS
-    frontLeftDriveMotor.Set(ControlMode::PercentOutput, (frontLeftSpeed * 0.6));
-    frontRightDriveMotor.Set(ControlMode::PercentOutput, (frontRightSpeed * 0.6));
-    backRightDriveMotor.Set(ControlMode::PercentOutput, (backRightSpeed * 0.6));
-    backLeftDriveMotor.Set(ControlMode::PercentOutput, (backLeftSpeed * 0.6));
+    frontLeftDriveMotor.Set(ControlMode::PercentOutput, (frontLeftSpeed * maxSpeed));
+    frontRightDriveMotor.Set(ControlMode::PercentOutput, (frontRightSpeed * maxSpeed));
+    backRightDriveMotor.Set(ControlMode::PercentOutput, (backRightSpeed * maxSpeed));
+    backLeftDriveMotor.Set(ControlMode::PercentOutput, (backLeftSpeed * maxSpeed));
 
     steerPID.EnableContinuousInput(-180, 180);
     drivePID.EnableContinuousInput(-1, 1);
