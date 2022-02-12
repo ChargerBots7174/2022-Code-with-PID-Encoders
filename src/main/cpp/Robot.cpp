@@ -10,9 +10,6 @@ using namespace frc;
 
 void Robot::RobotInit() 
 {
-    m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-    m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-    frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
     ahrs = new AHRS(SPI::Port::kMXP);
     resetSensors();
 }
@@ -37,20 +34,33 @@ void Robot::TeleopPeriodic()
     driveZ = joystickController.GetTwist();
     maxSpeed = joystickController.GetThrottle();
     //xbox controller
-    // driveX = xboxController.GetLeftX();
-    // driveY = xboxController.GetLeftY();
-    // driveZ = xboxController.GetRightX();
+    //driveX = xboxController.GetLeftX();
+    //driveY = xboxController.GetLeftY();
+    //driveZ = xboxController.GetRightX();
+    frc::SmartDashboard::PutNumber("xv", driveX);
+    frc::SmartDashboard::PutNumber("yv", driveY);
+    frc::SmartDashboard::PutNumber("twist", driveZ);
 
-    driveTrain.drive(driveX, driveY, driveZ, nav_yaw, maxSpeed);
+    driveTrain.drive(driveX, driveY, driveZ, nav_yaw, 1);
 }
 
-void Robot::resetSensors(){
+void Robot::AutonomousPeriodic() 
+{
+    nav_yaw = -ahrs->GetYaw();
+    if(driveTrain.driveDistance(60,0)){ 
+        driveTrain.drive(0,0,0,nav_yaw,1);
+    }else{
+        driveTrain.driveAutonomous(0,-.5,0,nav_yaw,1);
+    }
+};
+
+void Robot::resetSensors()
+{
     ahrs->Reset();
     ahrs->ZeroYaw();
     driveTrain.resetAllEncoders();
 }
 
-void Robot::AutonomousPeriodic() {}
 void Robot::RobotPeriodic() {}
 void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}

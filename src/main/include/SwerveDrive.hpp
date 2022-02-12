@@ -7,6 +7,11 @@
 #include "frc/smartdashboard/Smartdashboard.h"
 #include <frc/controller/PIDController.h>
 
+#define GEAR_RATIO .5
+#define ENCODER_TO_INCHES 12.566 / 12000;
+#define ENCODER_TO_ANGLE 0.0146484375
+
+
 using namespace frc;
 
 class SwerveDrive  
@@ -24,19 +29,27 @@ class SwerveDrive
 		WPI_TalonSRX backRightDriveMotor = 40;
 		WPI_TalonSRX backRightAngleMotor = 41;
 
+		/*frc2::PIDController steerPID{0.007, 0,0};
+		frc2::PIDController drivePID{1, 0, 0};
+		frc2::PIDController gyroPID{0.05, 0, 0};*/
+		
 		frc2::PIDController steerPID{0.00675, 0, 0};
 		frc2::PIDController drivePID{1, 0, 0};
-		frc2::PIDController gyroPID{0.045, 0, 0};
-
+		frc2::PIDController gyroPID{0.45, 0, 0};
+		
 		double robotWidth = 30;
 		double robotLength = 30;
-		double z = 0;
 		double gyroMul = 0;
 
 		double frontRightAngle = 0;
 		double frontLeftAngle = 0;
     	double backRightAngle = 0;
     	double backLeftAngle = 0;
+		
+		double frontRightDriveEncoder = 0;
+		double frontLeftDriveEncoder = 0;
+    	double backRightDriveEncoder = 0;
+    	double backLeftDriveEncoder = 0;
 
 		double robotHeading = 0;
 
@@ -50,12 +63,17 @@ class SwerveDrive
 		double frontRightAngleCalc = 0;
 		double frontLeftAngleCalc = 0;
 
-		double driftOffset = 0.01;
+		double XvdriftOffset = 0.08;
+		double YvdriftOffset = 0.08; 
+		double twistdriftOffset = 0.1; 
+		double negtwistdriftOffset = 0.2; 
 	public:
-		void drive(double xv, double yv, double omega, double speedMul, double maxSpeed);
+		void drive(double xv, double yv, double omega, double yaw, double maxSpeed);
+ 		void driveAutonomous(double xv, double yv, double omega,double yaw, double maxSpeed);
 		void resetAllEncoders();
 		void updateAllEncoders();
 		SwerveDrive();
 		~SwerveDrive();
+		bool driveDistance (double targetDistance, double angle);
 };
 #endif

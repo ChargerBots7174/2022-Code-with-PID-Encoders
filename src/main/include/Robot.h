@@ -1,12 +1,12 @@
 #pragma once
 #include <frc/TimedRobot.h>
-#include <frc/smartdashboard/SendableChooser.h>
 #include "ctre/Phoenix.h"
 #include <frc/XboxController.h>
 #include "frc/smartdashboard/Smartdashboard.h"
 #include <frc/Joystick.h>
 #include "SwerveDrive.hpp"
 #include "AHRS.h"
+#include <frc/Encoder.h>
 
 using namespace frc;
 
@@ -27,11 +27,6 @@ class Robot : public frc::TimedRobot
 
 
 private:
-    frc::SendableChooser<std::string> m_chooser;
-    const std::string kAutoNameDefault = "Default";
-    const std::string kAutoNameCustom = "My Auto";
-    std::string m_autoSelected;
-
     //CONTROLLER VALUES
     XboxController xboxController{0};
     Joystick joystickController{0};
@@ -39,6 +34,8 @@ private:
     double speedMul = 0;
     AHRS *ahrs;
     double nav_yaw = 0;
+
+    int currentState = 0;
 
     double driveX, driveY, driveZ = 0;
     double maxSpeed = 0;
@@ -56,6 +53,5 @@ private:
     WPI_TalonSRX backRightAngleMotor = 41;
 
     SwerveDrive driveTrain;
-
     I2C arduino {I2C::Port::kOnboard, 0x03};
 };
