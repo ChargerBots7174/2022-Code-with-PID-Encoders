@@ -8,8 +8,8 @@
 #include <frc/controller/PIDController.h>
 
 #define GEAR_RATIO .5
-#define ENCODER_TO_INCHES 12.566 / 12000;
-#define ENCODER_TO_ANGLE 0.0146484375
+#define ENCODER_TO_INCHES 52*3.141529/174080 ; //2048 number
+#define ENCODER_TO_ANGLE 35/3072
 
 
 using namespace frc;
@@ -17,6 +17,7 @@ using namespace frc;
 class SwerveDrive  
 {
 	private:
+		double firstDistance = 10;
 		WPI_TalonSRX frontLeftDriveMotor = 20;
 		WPI_TalonSRX frontLeftAngleMotor = 21;
 
@@ -63,13 +64,19 @@ class SwerveDrive
 		double frontRightAngleCalc = 0;
 		double frontLeftAngleCalc = 0;
 
-		double XvdriftOffset = 0.08;
+		
+		double XvdriftOffset = 0.08; 
 		double YvdriftOffset = 0.08; 
-		double twistdriftOffset = 0.1; 
+		double twistdriftOffset = 0.2; 
 		double negtwistdriftOffset = 0.2; 
+
+		
 	public:
 		void drive(double xv, double yv, double omega, double yaw, double maxSpeed);
  		void driveAutonomous(double xv, double yv, double omega,double yaw, double maxSpeed);
+		void alignHorizontal(double offset, double yaw);
+		double map(double val, double x, double y, double j, double k);
+
 		void resetAllEncoders();
 		void updateAllEncoders();
 		SwerveDrive();
