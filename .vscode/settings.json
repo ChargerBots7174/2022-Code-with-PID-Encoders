@@ -19,6 +19,8 @@
     "*.tcc": "cpp",
     "complex": "cpp",
     "random": "cpp",
-    "matrixfunctions": "cpp"
-  }
+    "matrixfunctions": "cpp",
+    "*.inc": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Enabled"
 }

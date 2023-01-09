@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "2022-Swerve-3",
+			"path": "..\\..\\.."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "disabled",
+		"java.import.gradle.enabled": false
+	}
+} 
