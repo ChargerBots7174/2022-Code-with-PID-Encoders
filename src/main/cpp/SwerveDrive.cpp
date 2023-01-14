@@ -41,17 +41,35 @@ void SwerveDrive::drive(double xv, double yv, double omega, double yaw, double m
     frontRightSpeed = sqrt ((b * b)) + ((d * d));
     frontLeftSpeed = sqrt ((b * b)) + ((c * c));
 
+    //for loop PID motor
+    int motorSpeeds[4] = {backRightDriveMotor.GetSelectedSensorVelocity(), frontRightDriveMotor.GetSelectedSensorVelocity(), backLeftDriveMotor.GetSelectedSensorVelocity(), frontLeftDriveMotor.GetSelectedSensorVelocity()};
+    int lowest = backRightDriveMotor.GetSelectedSensorVelocity(); 
+    int index = 0;
+    for(int i=1; i<4; i++) {
+        if (motorSpeeds[i] < lowest) {
+            lowest = motorSpeeds[i]; 
+            index = i;
+        }
+    } 
+    
+    
+    frc::SmartDashboard::PutNumber("lowest", lowest);
+     frc::SmartDashboard::PutNumber("index", index);
+    
+    
     //MOTOR ANGLE CALCULATIONS
     backLeftAngleCalc = 180 * atan2 (a, d) / (2*acos(0));
     backRightAngleCalc = 180 * atan2 (a, c) / (2*acos(0));
     frontLeftAngleCalc = 180 * atan2 (b, d) / (2*acos(0));
     frontRightAngleCalc = 180 * atan2 (b, c) / (2*acos(0));
 
+    //PID Motor
+
     //SET DRIVE MOTORS
-    frontLeftDriveMotor.Set(ControlMode::PercentOutput, (frontLeftSpeed * maxSpeed));
-    frontRightDriveMotor.Set(ControlMode::PercentOutput, (frontRightSpeed * maxSpeed));
+    frontLeftDriveMotor.Set(ControlMode::PercentOutput, (backRightSpeed * maxSpeed));
+    frontRightDriveMotor.Set(ControlMode::PercentOutput, (backRightSpeed * maxSpeed));
     backRightDriveMotor.Set(ControlMode::PercentOutput, (backRightSpeed * maxSpeed));
-    backLeftDriveMotor.Set(ControlMode::PercentOutput, (backLeftSpeed * maxSpeed));
+    backLeftDriveMotor.Set(ControlMode::PercentOutput, (backRightSpeed * maxSpeed));
 
     steerPID.EnableContinuousInput(-180, 180);
     drivePID.EnableContinuousInput(-1, 1);
