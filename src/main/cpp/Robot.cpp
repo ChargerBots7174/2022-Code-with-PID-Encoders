@@ -47,8 +47,13 @@ void Robot::TeleopInit()
     climbSet = false;
 }
 
+
 void Robot::TeleopPeriodic()
 {
+    frc::SmartDashboard::PutNumber("back left vel", backLeftDriveMotor.GetSelectedSensorVelocity());
+    frc::SmartDashboard::PutNumber("front left vel", frontLeftDriveMotor.GetSelectedSensorVelocity());
+    frc::SmartDashboard::PutNumber("back right vel", backRightDriveMotor.GetSelectedSensorVelocity());
+    frc::SmartDashboard::PutNumber("front right vel", frontRightDriveMotor.GetSelectedSensorVelocity());
     // frc::SmartDashboard::PutNumber("intake en", lift.GetSelectedSensorPosition());
     // //INTAKE UP AND DOWN
     // frc::DigitalInput IntakeSwitch{0};
